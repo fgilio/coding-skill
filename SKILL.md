@@ -77,6 +77,7 @@ Write comments like Taylor Otwell. Technical, concise, and clean:
     - `Idempotently sync X` → `Sync X` (idempotency wasn't the point)
     - `This endpoint is idempotent, safe to retry on network failure` → keep (retry logic depends on it)
     - `Empty input is a deliberate detach signal` → `Passing an empty collection detaches every term` (describe behavior, not framing)
+    - "invariant" in particular: prefer "rule" or "guarantee" unless the context is genuinely formal (a spec, math, quoted material)
 - **No filler clichés**: avoid "defense in depth", "legacy", and "the long pole" unless the term is load-bearing. Test: remove the phrase. If meaning survives, it was decoration. Examples:
     - `Defense in depth: validate at controller and model` → keep (names the layered-checks pattern that justifies the redundancy)
     - `Defense in depth approach to error handling` → `Validate inputs at every boundary` (rhetorical garnish)
@@ -87,6 +88,7 @@ Write comments like Taylor Otwell. Technical, concise, and clean:
     - `` `platform: linux/arm64`; the amd64 base silently defeated that and ran under Rosetta `` → `the platform declaration won't force arm64 on its own, so the base must be the arm tag` (reframe the fixed bug as the constraint that still binds)
     - `halves PHP CPU time, the dominant cost of the test suites` → `halves PHP CPU time` (test-suite framing is origin context from another repo, not a fact about this image)
     - `Rewrote this after the March N+1 incident` → cut (the incident is git history, the code shows the fix)
+    - Diff-relative phrasings (`match the pre-FormRequest contract`, `previously Y, now Z`, `restores behavior before N`) → state the rule, constraint, or hidden coupling directly. The comment must make sense to a reader who has no idea which PR added it. That history belongs in the commit message and PR description.
 - **Professional tone**: technical documentation, not conversation
 - **Multi-line format** for class/function descriptions, single-line for properties
 - **Tapered line widths** (Taylor-style PHPDoc): each wrapped line is roughly 3 chars shorter than the one above. Resets after a paragraph/line break.
@@ -112,7 +114,7 @@ Write docs that are conversational yet precise:
 - **Use "you" and active voice**: "You can retrieve a customer..." not "Customers can be retrieved..."
 - **One concept per paragraph**
 - **Practical examples** over abstract descriptions
-- **Plain over jargon**: default to concrete behavior. Reach for CS terms (*idempotent*, *invariant*, *sentinel*, *signal*, *monotonic*) only when the term **is the point**. Test: remove the term. If meaning survives, it was decoration.
+- **Plain over jargon**: default to concrete behavior. Reach for CS terms (*idempotent*, *invariant*, *sentinel*, *signal*, *monotonic*) only when the term **is the point**. Test: remove the term. If meaning survives, it was decoration. "Invariant" in particular: prefer "rule" or "guarantee" unless the context is genuinely formal.
 - **No filler clichés**: avoid "defense in depth", "legacy", and "the long pole" unless the term is load-bearing. Test: remove the phrase. If meaning survives, it was decoration. Examples:
     - `Defense in depth: validate at controller and model` → keep (names the layered-checks pattern that justifies the redundancy)
     - `Defense in depth approach to error handling` → `Validate inputs at every boundary` (rhetorical garnish)
