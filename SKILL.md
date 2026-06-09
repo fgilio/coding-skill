@@ -96,7 +96,7 @@ existing condition and patching the difference inside.
 
 Write comments like Taylor Otwell. Technical, concise, and clean:
 
-```
+```php
 /**
  * Mutex implementation for serializing concurrent operations.
  *
