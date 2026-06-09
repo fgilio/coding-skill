@@ -45,13 +45,13 @@ $user->posts()->published()->latest()->take(5)->get();
 $query->when($request->has('filter'), fn ($query) => $query->where('status', $request->filter));
 Route::get(uri: '/users', action: [UserController::class, 'index']);
 
-// Typed access to untyped arrays (API payloads, cache recaps, JSON)
-$recap = fluent($data);
-$sessions = $recap->integer('sessions');
-$startedAt = $recap->date('started_at');
+// Typed access to untyped arrays (API payloads, cached values, JSON)
+$order = fluent($data);
+$quantity = $order->integer('quantity');
+$placedAt = $order->date('placed_at');
 
 // One-shot: skip the local var when you only read one key
-'total' => fluent($data)->integer('seconds_reading'),
+'total' => fluent($data)->integer('amount_cents'),
 ```
 
 Reach for `fluent()` when you'd otherwise sprinkle `(int) $data['x']`,
