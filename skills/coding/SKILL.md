@@ -2,9 +2,11 @@
 name: coding
 description: >
   Franco's code style preferences: expressive naming, fluent interfaces,
-  early returns, Laravel-style comments, Stripe-style docs.
-  Use when: writing code, reviewing code, refactoring, adding comments,
-  writing docs, naming functions/variables, creating error messages.
+  early returns, Laravel-idiomatic PHP, Laravel-style comments,
+  Stripe-style docs.
+  Use when: writing code, reviewing code, refactoring, converting raw
+  PHP to framework idioms, adding comments, writing docs, naming
+  functions/variables, creating error messages.
 user-invocable: false
 disable-model-invocation: false
 ---
@@ -39,25 +41,12 @@ post.belongsToUser(user);
 order.hasStatus('pending');
 ```
 
-## PHP/Laravel Examples
-```php
-$user->posts()->published()->latest()->take(5)->get();
-$query->when($request->has('filter'), fn ($query) => $query->where('status', $request->filter));
-Route::get(uri: '/users', action: [UserController::class, 'index']);
+## Laravel Codebases
 
-// Typed access to untyped arrays (API payloads, cached values, JSON)
-$order = fluent($data);
-$quantity = $order->integer('quantity');
-$placedAt = $order->date('placed_at');
-
-// One-shot: skip the local var when you only read one key
-'total' => fluent($data)->integer('amount_cents'),
-```
-
-Reach for `fluent()` when you'd otherwise sprinkle `(int) $data['x']`,
-`$data['y'] ?? null`, or `Carbon::parse($data['z'])` across a method.
-It gives you `->integer()`, `->string()`, `->boolean()`, `->date()`,
-`->collect()` with coercion and null-safety built in.
+Working in PHP/Laravel? Read [laravel.md](laravel.md) before writing
+code. It covers fluent chains, `fluent()` for typed array access,
+framework APIs over raw PHP (`throw_if`, collections, `Str`, `Rule`
+objects), and the boundaries where raw PHP stays idiomatic.
 
 ## Guard Clauses: One Guard Per Exit Reason
 
