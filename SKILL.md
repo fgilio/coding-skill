@@ -128,7 +128,9 @@ Also apply the Shared Prose Rules (comments and docs) below.
 
 ## Error Messages
 
-Write helpful errors like Laravel:
+Write helpful errors like Laravel. Name the field, the value, and the
+expectation. Write for the person who hits the error, not the
+developer who threw it.
 - DO "The name field is required"
 - DON'T "Missing parameter: name"
 - DO "Unable to find user with ID: 42"
