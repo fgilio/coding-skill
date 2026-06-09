@@ -157,7 +157,7 @@ These apply to both code comments and documentation.
 - **Plain over jargon**: default to concrete behavior. Reach for CS terms (*idempotent*, *invariant*, *sentinel*, *signal*, *monotonic*) only when the term **is the point** (it conveys something plain English can't, and the reader needs that concept to use the code correctly). Test: remove the term. If meaning survives, it was decoration. Examples:
     - `Idempotently sync X` → `Sync X` (idempotency wasn't the point)
     - `This endpoint is idempotent, safe to retry on network failure` → keep (retry logic depends on it)
-    - `Empty input is a deliberate detach signal` → `Passing an empty collection detaches every term` (describe behavior, not framing)
+    - `Empty input is a deliberate detach signal` → `Passing an empty collection detaches every tag` (describe behavior, not framing)
     - "invariant" in particular: prefer "rule" or "guarantee" unless the context is genuinely formal (a spec, math, quoted material)
 - **No filler clichés**: avoid "defense in depth", "legacy", and "the long pole" unless the term is load-bearing. Test: remove the phrase. If meaning survives, it was decoration. Examples:
     - `Defense in depth: validate at controller and model` → keep (names the layered-checks pattern that justifies the redundancy)
