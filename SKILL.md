@@ -100,8 +100,8 @@ Write comments like Taylor Otwell. Technical, concise, and clean:
 /**
  * Mutex implementation for serializing concurrent operations.
  *
- * Ensures exclusive access to shared resources by queuing
- * operations and processing them sequentially in turn.
+ * Acquisition is FIFO, so a single slow holder delays every
+ * caller queued behind it. Keep critical sections short.
  */
 ```
 
