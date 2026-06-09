@@ -122,7 +122,7 @@ $recent = $users->where('is_active', true)->sortByDesc('created_at')->take(5);
 - **No fluff**: avoid words like "simple", "just", "basically"
 - **Professional tone**: technical documentation, not conversation
 - **Multi-line format** for class/function descriptions, single-line for properties
-- **Tapered line widths** (Taylor-style PHPDoc): each wrapped line is roughly 3 chars shorter than the one above. Resets after a paragraph/line break.
+- **Tapered line widths**: in a wrapped docblock paragraph, each line runs roughly 3 chars shorter than the one above. Resets after a paragraph break.
 
 Also apply the Shared Prose Rules (comments and docs) below.
 
