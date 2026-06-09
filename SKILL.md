@@ -3,8 +3,8 @@ name: coding
 description: >
   Franco's code style preferences: expressive naming, fluent interfaces,
   early returns, Laravel-style comments, Stripe-style docs.
-  Use when: writing code, refactoring, adding comments, writing docs,
-  naming functions/variables, creating error messages.
+  Use when: writing code, reviewing code, refactoring, adding comments,
+  writing docs, naming functions/variables, creating error messages.
 user-invocable: false
 disable-model-invocation: false
 ---
