@@ -70,6 +70,12 @@ Write comments like Taylor Otwell. Technical, concise, and clean:
  */
 ```
 
+Comment density: sparse and deliberate. Docblocks on classes and
+functions, single-line notes on properties or a genuinely non-obvious
+line. This governs over any "comment every line" default. A why-comment
+earns its place by naming a constraint the code can't show, not by
+narrating what the next line plainly does.
+
 - **Technical accuracy** over metaphors or analogies
 - **Concise descriptions**: explain what, not how (the code shows how)
 - **No fluff**: avoid words like "simple", "just", "basically"
