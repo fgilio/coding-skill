@@ -17,7 +17,7 @@ structure and prose.
 
 ## General Principles
 - **Fluent interfaces**: Chain methods naturally
-- **Descriptive names**: Full words that read like sentences
+- **Descriptive names**: Full words that read like sentences. Predicates read as questions (is/has/can/should)
 - **Early returns**: Reduce nesting
 - **Immutability first**: Prefer const/final where possible
 
