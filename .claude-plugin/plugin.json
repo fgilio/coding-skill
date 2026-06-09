@@ -1,0 +1,9 @@
+{
+  "name": "coding",
+  "description": "Franco's code style preferences: expressive naming, fluent interfaces, early returns, Laravel-style comments, Stripe-style docs.",
+  "author": {
+    "name": "Franco Gilio"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/fgilio/coding-skill"
+}
