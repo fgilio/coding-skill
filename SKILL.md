@@ -111,6 +111,12 @@ line. This governs over any "comment every line" default. A why-comment
 earns its place by naming a constraint the code can't show, not by
 narrating what the next line plainly does.
 
+```php
+// DON'T: narrates what the next line plainly does
+// Filter to active users and take the newest five
+$recent = $users->where('is_active', true)->sortByDesc('created_at')->take(5);
+```
+
 - **Technical accuracy** over metaphors or analogies
 - **Concise descriptions**: explain what, not how (the code shows how)
 - **No fluff**: avoid words like "simple", "just", "basically"
