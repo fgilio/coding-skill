@@ -40,7 +40,7 @@ order.hasStatus('pending');
 ## PHP/Laravel Examples
 ```php
 $user->posts()->published()->latest()->take(5)->get();
-when($request->has('filter'), fn() => ...);
+$query->when($request->has('filter'), fn ($query) => $query->where('status', $request->filter));
 Route::get(uri: '/users', action: [UserController::class, 'index']);
 
 // Typed access to untyped arrays (API payloads, cache recaps, JSON)
