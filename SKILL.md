@@ -164,7 +164,7 @@ These apply to both code comments and documentation.
     - `Defense in depth approach to error handling` → `Validate inputs at every boundary` (rhetorical garnish)
     - `Removed legacy auth middleware (pre-Sanctum, cookie-session)` → keep (parenthetical names the predecessor)
     - `Refactored the legacy user service` → `Refactored UserService` (vibes, not facts)
-    - `e2e is the long pole of the pipeline` → `e2e dominates total pipeline wall-clock (deploy waits on it via needs:)` (describe the dependency, not the metaphor)
+    - `e2e is the long pole of the pipeline` → `e2e dominates total pipeline wall-clock (deploy waits on it)` (describe the dependency, not the metaphor)
 - **No biography**: comment the constraint that holds *now* in *this file*, not the bug it replaced or the work that prompted the change. When history carries a load-bearing rule, reframe it present-tense; otherwise cut it. Test: would a reader of this file need it to use the code correctly? If it only recounts how we got here or imports context from another codebase, it is biography. Examples:
     - `Cast to int, the API returned strings and broke the totals` → `The API returns amounts as strings, so cast before summing` (reframe the fixed bug as the constraint that still binds)
     - `halves PHP CPU time, the dominant cost of the test suites` → `halves PHP CPU time` (test-suite framing is origin context from another repo, not a fact about this image)
