@@ -166,7 +166,7 @@ These apply to both code comments and documentation.
     - `Refactored the legacy user service` → `Refactored UserService` (vibes, not facts)
     - `e2e is the long pole of the pipeline` → `e2e dominates total pipeline wall-clock (deploy waits on it via needs:)` (describe the dependency, not the metaphor)
 - **No biography**: comment the constraint that holds *now* in *this file*, not the bug it replaced or the work that prompted the change. When history carries a load-bearing rule, reframe it present-tense; otherwise cut it. Test: would a reader of this file need it to use the code correctly? If it only recounts how we got here or imports context from another codebase, it is biography. Examples:
-    - `` `platform: linux/arm64`; the amd64 base silently defeated that and ran under Rosetta `` → `the platform declaration won't force arm64 on its own, so the base must be the arm tag` (reframe the fixed bug as the constraint that still binds)
+    - `Cast to int, the API returned strings and broke the totals` → `The API returns amounts as strings, so cast before summing` (reframe the fixed bug as the constraint that still binds)
     - `halves PHP CPU time, the dominant cost of the test suites` → `halves PHP CPU time` (test-suite framing is origin context from another repo, not a fact about this image)
     - `Rewrote this after the March N+1 incident` → cut (the incident is git history, the code shows the fix)
     - Diff-relative phrasings (`match the pre-FormRequest contract`, `previously Y, now Z`, `restores behavior before N`) → state the rule, constraint, or hidden coupling directly. The comment must make sense to a reader who has no idea which PR added it. That history belongs in the commit message and PR description.
