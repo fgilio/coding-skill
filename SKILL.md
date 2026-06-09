@@ -98,10 +98,10 @@ Write comments like Taylor Otwell. Technical, concise, and clean:
 
 ```php
 /**
- * Mutex implementation for serializing concurrent operations.
+ * Builds the monthly statement for a customer account.
  *
- * Acquisition is FIFO, so a single slow holder delays every
- * caller queued behind it. Keep critical sections short.
+ * Amounts stay in cents until the final formatting step,
+ * so rounding never drifts from line items to total.
  */
 ```
 
