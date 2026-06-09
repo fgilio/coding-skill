@@ -11,7 +11,9 @@ disable-model-invocation: false
 
 # Code Style: Expressive & Readable
 
-Write code that feels eloquent and expressive:
+Write code that feels eloquent and expressive. Repo conventions win on
+mechanics (indentation, quotes, import order). These rules win on
+structure and prose.
 
 ## General Principles
 - **Fluent interfaces**: Chain methods naturally
