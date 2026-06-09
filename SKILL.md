@@ -79,28 +79,11 @@ narrating what the next line plainly does.
 - **Technical accuracy** over metaphors or analogies
 - **Concise descriptions**: explain what, not how (the code shows how)
 - **No fluff**: avoid words like "simple", "just", "basically"
-- **Plain over jargon**: default to concrete behavior. Reach for CS terms (*idempotent*, *invariant*, *sentinel*, *signal*, *monotonic*) only when the term **is the point** (it conveys something plain English can't, and the reader needs that concept to use the code correctly). Test: remove the term. If meaning survives, it was decoration. Examples:
-    - `Idempotently sync X` → `Sync X` (idempotency wasn't the point)
-    - `This endpoint is idempotent, safe to retry on network failure` → keep (retry logic depends on it)
-    - `Empty input is a deliberate detach signal` → `Passing an empty collection detaches every term` (describe behavior, not framing)
-    - "invariant" in particular: prefer "rule" or "guarantee" unless the context is genuinely formal (a spec, math, quoted material)
-- **No filler clichés**: avoid "defense in depth", "legacy", and "the long pole" unless the term is load-bearing. Test: remove the phrase. If meaning survives, it was decoration. Examples:
-    - `Defense in depth: validate at controller and model` → keep (names the layered-checks pattern that justifies the redundancy)
-    - `Defense in depth approach to error handling` → `Validate inputs at every boundary` (rhetorical garnish)
-    - `Removed legacy auth middleware (pre-Sanctum, cookie-session)` → keep (parenthetical names the predecessor)
-    - `Refactored the legacy user service` → `Refactored UserService` (vibes, not facts)
-    - `e2e is the long pole of the pipeline` → `e2e dominates total pipeline wall-clock (deploy waits on it via needs:)` (describe the dependency, not the metaphor)
-- **No biography**: comment the constraint that holds *now* in *this file*, not the bug it replaced or the work that prompted the change. When history carries a load-bearing rule, reframe it present-tense; otherwise cut it. Test: would a reader of this file need it to use the code correctly? If it only recounts how we got here or imports context from another codebase, it is biography. Examples:
-    - `` `platform: linux/arm64`; the amd64 base silently defeated that and ran under Rosetta `` → `the platform declaration won't force arm64 on its own, so the base must be the arm tag` (reframe the fixed bug as the constraint that still binds)
-    - `halves PHP CPU time, the dominant cost of the test suites` → `halves PHP CPU time` (test-suite framing is origin context from another repo, not a fact about this image)
-    - `Rewrote this after the March N+1 incident` → cut (the incident is git history, the code shows the fix)
-    - Diff-relative phrasings (`match the pre-FormRequest contract`, `previously Y, now Z`, `restores behavior before N`) → state the rule, constraint, or hidden coupling directly. The comment must make sense to a reader who has no idea which PR added it. That history belongs in the commit message and PR description.
 - **Professional tone**: technical documentation, not conversation
 - **Multi-line format** for class/function descriptions, single-line for properties
 - **Tapered line widths** (Taylor-style PHPDoc): each wrapped line is roughly 3 chars shorter than the one above. Resets after a paragraph/line break.
-- **No em dash** (—) and no ` - ` as parenthetical separators. Use parentheses or split into separate sentences.
-- **No semicolons** (almost never). Split into separate sentences instead.
-- **Straight apostrophes** (') always, never curly.
+
+Also apply the Shared Prose Rules (comments and docs) below.
 
 ## Error Messages
 
@@ -120,14 +103,30 @@ Write docs that are conversational yet precise:
 - **Use "you" and active voice**: "You can retrieve a customer..." not "Customers can be retrieved..."
 - **One concept per paragraph**
 - **Practical examples** over abstract descriptions
-- **Plain over jargon**: default to concrete behavior. Reach for CS terms (*idempotent*, *invariant*, *sentinel*, *signal*, *monotonic*) only when the term **is the point**. Test: remove the term. If meaning survives, it was decoration. "Invariant" in particular: prefer "rule" or "guarantee" unless the context is genuinely formal.
+
+Also apply the Shared Prose Rules (comments and docs) below.
+
+
+# Shared Prose Rules (comments and docs)
+
+These apply to both code comments and documentation.
+
+- **Plain over jargon**: default to concrete behavior. Reach for CS terms (*idempotent*, *invariant*, *sentinel*, *signal*, *monotonic*) only when the term **is the point** (it conveys something plain English can't, and the reader needs that concept to use the code correctly). Test: remove the term. If meaning survives, it was decoration. Examples:
+    - `Idempotently sync X` → `Sync X` (idempotency wasn't the point)
+    - `This endpoint is idempotent, safe to retry on network failure` → keep (retry logic depends on it)
+    - `Empty input is a deliberate detach signal` → `Passing an empty collection detaches every term` (describe behavior, not framing)
+    - "invariant" in particular: prefer "rule" or "guarantee" unless the context is genuinely formal (a spec, math, quoted material)
 - **No filler clichés**: avoid "defense in depth", "legacy", and "the long pole" unless the term is load-bearing. Test: remove the phrase. If meaning survives, it was decoration. Examples:
     - `Defense in depth: validate at controller and model` → keep (names the layered-checks pattern that justifies the redundancy)
     - `Defense in depth approach to error handling` → `Validate inputs at every boundary` (rhetorical garnish)
     - `Removed legacy auth middleware (pre-Sanctum, cookie-session)` → keep (parenthetical names the predecessor)
     - `Refactored the legacy user service` → `Refactored UserService` (vibes, not facts)
     - `e2e is the long pole of the pipeline` → `e2e dominates total pipeline wall-clock (deploy waits on it via needs:)` (describe the dependency, not the metaphor)
-- **No biography**: document the present behavior and constraints, not the bug a change replaced or the work that prompted it. Reframe load-bearing history present-tense, cut the rest. Test: would a reader need it to use the thing correctly, or does it only recount how we got here?
+- **No biography**: comment the constraint that holds *now* in *this file*, not the bug it replaced or the work that prompted the change. When history carries a load-bearing rule, reframe it present-tense; otherwise cut it. Test: would a reader of this file need it to use the code correctly? If it only recounts how we got here or imports context from another codebase, it is biography. Examples:
+    - `` `platform: linux/arm64`; the amd64 base silently defeated that and ran under Rosetta `` → `the platform declaration won't force arm64 on its own, so the base must be the arm tag` (reframe the fixed bug as the constraint that still binds)
+    - `halves PHP CPU time, the dominant cost of the test suites` → `halves PHP CPU time` (test-suite framing is origin context from another repo, not a fact about this image)
+    - `Rewrote this after the March N+1 incident` → cut (the incident is git history, the code shows the fix)
+    - Diff-relative phrasings (`match the pre-FormRequest contract`, `previously Y, now Z`, `restores behavior before N`) → state the rule, constraint, or hidden coupling directly. The comment must make sense to a reader who has no idea which PR added it. That history belongs in the commit message and PR description.
 - **No em dash** (—) and no ` - ` as parenthetical separators. Use parentheses or split into separate sentences.
 - **No semicolons** (almost never). Split into separate sentences instead.
 - **Straight apostrophes** (') always, never curly.
