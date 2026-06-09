@@ -172,4 +172,4 @@ These apply to both code comments and documentation.
     - Diff-relative phrasings (`match the pre-FormRequest contract`, `previously Y, now Z`, `restores behavior before N`) → state the rule, constraint, or hidden coupling directly. The comment must make sense to a reader who has no idea which PR added it. That history belongs in the commit message and PR description.
 - **No em dash** (—) and no ` - ` as parenthetical separators. Use parentheses or split into separate sentences.
 - **No semicolons** (almost never). Split into separate sentences instead.
-- **Straight apostrophes** (') always, never curly.
+- **Straight apostrophes and quotes** (' and ") always, never curly.
