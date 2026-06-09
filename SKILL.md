@@ -57,6 +57,39 @@ Reach for `fluent()` when you'd otherwise sprinkle `(int) $data['x']`,
 It gives you `->integer()`, `->string()`, `->boolean()`, `->date()`,
 `->collect()` with coercion and null-safety built in.
 
+## Guard Clauses: One Guard Per Exit Reason
+
+When two conditions exit differently (silent return, logged skip,
+exception), write two sequential guards. Never merge them into one
+umbrella condition and re-branch inside it. A nested `if` inside a
+guard body means two guards were collapsed.
+
+```php
+// DON'T: umbrella guard, then re-discriminate inside
+if (! HmacKey::isStrong($webhookKey)) {
+    if ($webhookKey !== null) {
+        $this->logSkip($webhookKey);
+    }
+
+    return;
+}
+
+// DO: each guard states its condition and owns its consequence
+if ($webhookKey === null) {
+    return;
+}
+
+if (! HmacKey::isStrong($webhookKey)) {
+    $this->logSkip($webhookKey);
+
+    return;
+}
+```
+
+This usually creeps in when adding a new exit condition next to an
+existing guard. Add it as its own guard instead of widening the
+existing condition and patching the difference inside.
+
 ## Code Comments: Laravel-Style Precision
 
 Write comments like Taylor Otwell. Technical, concise, and clean:
