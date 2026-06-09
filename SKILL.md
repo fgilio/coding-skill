@@ -68,21 +68,21 @@ guard body means two guards were collapsed.
 
 ```php
 // DON'T: umbrella guard, then re-discriminate inside
-if (! HmacKey::isStrong($webhookKey)) {
-    if ($webhookKey !== null) {
-        $this->logSkip($webhookKey);
+if (! $user->hasVerifiedEmail()) {
+    if ($user->email !== null) {
+        $this->logSkip($user);
     }
 
     return;
 }
 
 // DO: each guard states its condition and owns its consequence
-if ($webhookKey === null) {
+if ($user->email === null) {
     return;
 }
 
-if (! HmacKey::isStrong($webhookKey)) {
-    $this->logSkip($webhookKey);
+if (! $user->hasVerifiedEmail()) {
+    $this->logSkip($user);
 
     return;
 }
