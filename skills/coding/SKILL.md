@@ -7,7 +7,7 @@ description: >
   Use when: writing code, reviewing code, refactoring, converting raw
   PHP to framework idioms, adding comments, writing docs, naming
   functions/variables, creating error messages.
-user-invocable: false
+user-invocable: true
 disable-model-invocation: false
 ---
 
