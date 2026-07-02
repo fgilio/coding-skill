@@ -2,7 +2,7 @@
 
 Franco's code-style skill for Claude Code. Expressive naming, fluent interfaces, early returns, Laravel-idiomatic PHP, Laravel-style comments, Stripe-style docs.
 
-Everything lives in [SKILL.md](skills/coding/SKILL.md).
+The style rules live in [SKILL.md](skills/coding/SKILL.md). Laravel-specific idioms live in [laravel.md](skills/coding/laravel.md), loaded on demand in PHP/Laravel codebases.
 
 ## Installation
 
