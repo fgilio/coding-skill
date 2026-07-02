@@ -1,4 +1,5 @@
-# Standard CI for a skill repo (Markdown, YAML, and JSON; no build).
+# Standard CI for a skill or marketplace repo (Markdown, YAML, and JSON; no
+# build).
 #
 # Gate jobs feed a single `ci-success` aggregate. Make `ci-success` the required
 # status check in branch protection, so adding or renaming a gate never touches
@@ -48,12 +49,34 @@ jobs:
               || { echo "::error file=$json_file::invalid JSON"; exit 1; }
           done
 
+  # A frontmatter typo ships silently and only surfaces when the skill fails
+  # to load, so parse it here. A no-op in repos without a skills/ directory.
+  validate-skills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Every SKILL.md frontmatter parses and names the skill
+        run: |
+          for skill_file in $(git ls-files 'skills/*/SKILL.md'); do
+            awk '/^---$/ { fence++; next } fence == 1 { print }' "$skill_file" > "$RUNNER_TEMP/frontmatter.yml"
+            npx --yes js-yaml "$RUNNER_TEMP/frontmatter.yml" > "$RUNNER_TEMP/frontmatter.json" \
+              || { echo "::error file=$skill_file::frontmatter is not valid YAML"; exit 1; }
+            node -e "
+              const frontmatter = require('$RUNNER_TEMP/frontmatter.json');
+              const present = (key) => typeof frontmatter[key] === 'string' && frontmatter[key].trim();
+              process.exit(['name', 'description'].every(present) ? 0 : 1);
+            " || { echo "::error file=$skill_file::frontmatter needs non-empty name and description fields"; exit 1; }
+          done
+
   # The single status check branch protection requires on `main`. Runs even when
   # a gate fails or is skipped (if: !cancelled()), but not when the run is
   # cancelled, so a cancelled run reports as cancelled rather than failed.
   ci-success:
     if: ${{ !cancelled() }}
-    needs: [format, validate-json]
+    needs: [format, validate-json, validate-skills]
     runs-on: ubuntu-latest
     steps:
       - uses: re-actors/alls-green@05ac9388f0aebcb5727afa17fcccfecd6f8ec5fe # v1.2.2
