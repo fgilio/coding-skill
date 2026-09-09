@@ -27,10 +27,11 @@ Design from the call site. Read the producer, operation, returned value, stored 
 
 - **Names promise behavior**: A caller should be able to predict what an operation returns, changes, or refuses. Name the actual behavior, including relevant units and representation. A method that only reports invalid orders should be `reportInvalidOrders()`, not `rejectInvalidOrders()`.
 - **Name related concepts together**: Use one vocabulary for the same concept across methods, variables, properties, bindings, and tests. Choose the names as a set before proposing a rename. Keep established domain terms unless they misstate the contract.
-- **Symmetry follows meaning**: Similar contracts should look similar. Preserve names that distinguish different behavior. `subtotal` and `total` must remain distinct when only one includes tax. Do not give raw and personalized links the same name or output merely to make their callers uniform.
-- **Ownership follows responsibility**: Put an operation where its required context and callers belong. Keep request-specific work at the request boundary and reusable transformations independent of request or UI context they do not need. A macro, helper, or wrapper earns its place by clarifying that boundary, not by shortening a call alone.
+- **Symmetry follows meaning**: Similar contracts should look similar. Preserve names that distinguish different behavior. Do not merge two outputs with different meanings just to make their callers uniform.
+- **Ownership follows responsibility**: Put an operation where its context and callers live. Request-specific work stays at the request boundary. Reusable transformations take no request or UI context they do not need. A helper or wrapper earns its place by marking that boundary, not by shortening a call.
 - **One shared rule, one derivation**: Centralize repeated calculations or conversions when they express the same rule. Do not merge similar expressions that have different failure behavior or reasons to change. A base value can be shared while its variants remain explicit.
-- **Expose only the intended interface**: Keep implementation details private or protected. Check callers, framework hooks, and external or serialized contracts before changing names, ownership, or visibility. Move related consumers and tests with an accepted interface change.
+- **Expose only the intended interface**: Keep implementation details private or protected.
+- **Change interfaces as a set**: Check callers, framework hooks, and serialized or external contracts before changing a name, owner, or visibility. Move consumers and tests with the change.
 
 ```php
 // Avoid: the consumer's name hides the amount's unit.
@@ -39,12 +40,12 @@ $total = $order->totalInCents();
 // Prefer: the producer and consumer describe the same value.
 $totalInCents = $order->totalInCents();
 
-// Keep: these amounts have different meanings.
+// Keep: only the total includes tax.
 $subtotalInCents = $order->subtotalInCents();
 $totalInCents = $order->totalInCents();
 ```
 
-Prefer a local change that makes a real caller easier to understand. Do not rename an established interface for taste, add forwarding layers without a useful boundary, or invent matching abstractions for operations that differ. Comments can explain a hidden constraint, but should not have to correct a misleading name.
+Prefer a local change that makes a real caller easier to understand. Comments can explain a hidden constraint, but should not have to correct a misleading name.
 
 ## JavaScript/TypeScript Examples
 
