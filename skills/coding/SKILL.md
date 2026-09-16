@@ -111,7 +111,7 @@ Write comments like Taylor Otwell. Technical, concise, and clean:
  */
 ```
 
-Comment density: a why-comment is a rare event. The default for any line, property, or well-named function is no comment at all. A docblock earns its place by carrying something the name and signature cannot; most functions need none, and "docblocks on classes and functions" is never a mandate to write one. A why-comment names a constraint the code can't show, not what the next line plainly does. Budget check on a finished diff: if it reads as commentary with code interleaved, cut until only the constraints the code cannot show remain. One or two short lines is the ceiling for any single why; a paragraph-sized rationale belongs in the PR description.
+Comment density: a why-comment is a rare event. The default for any line, property, or well-named function is no comment at all. A docblock earns its place by carrying something the name and signature cannot. Most functions need none, and "docblocks on classes and functions" is never a mandate to write one. A why-comment names a constraint the code can't show, not what the next line plainly does. Budget check on a finished diff: if it reads as commentary with code interleaved, cut until only the constraints the code cannot show remain. One or two short lines is the ceiling for any single why. A paragraph-sized rationale belongs in the PR description.
 
 ```php
 // DON'T: narrates what the next line plainly does
