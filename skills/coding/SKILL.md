@@ -185,6 +185,10 @@ These apply to both code comments and documentation.
   - `halves PHP CPU time, the dominant cost of the test suites` → `halves PHP CPU time` (test-suite framing is origin context from another repo, not a fact about this image)
   - `Rewrote this after the March N+1 incident` → cut (the incident is git history, the code shows the fix)
   - Diff-relative phrasings (`match the pre-FormRequest contract`, `previously Y, now Z`, `restores behavior before N`) → state the rule, constraint, or hidden coupling directly. The comment must make sense to a reader who has no idea which PR added it. That history belongs in the commit message and PR description.
+- **No contrastive negation for emphasis**: never frame a statement as "not X, but Y" (or "X, not Y", "It's not about X, it's about Y") when the negated half is a strawman nobody proposed. State Y directly. Negation earns its place only when the reader would plausibly assume X and the contrast prevents a real mistake. Test: remove the "not X" half. If nothing is lost, it was rhetorical emphasis. Examples:
+  - `This isn't a workaround, it's the permanent fix` → `This is the permanent fix`
+  - `Validate at the boundary, not deep in the domain` → keep (the reader would plausibly put the check in the domain layer, the contrast steers a real decision)
+  - `The cache key includes the tenant, not just the slug` → keep only if a slug-only key is the natural first guess. Otherwise: `The cache key includes the tenant and the slug`
 - **No em dash** (—) and no `-` as parenthetical separators. Use parentheses or split into separate sentences.
 - **No semicolons** (almost never). Split into separate sentences instead.
 - **Straight apostrophes and quotes** (' and ") always, never curly.
