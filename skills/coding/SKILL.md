@@ -3,9 +3,9 @@ name: coding
 description: >
   Franco's code style and change-landing preferences.
   Use when: writing code, reviewing code, refactoring, converting raw
-  PHP to framework idioms, adding comments, writing docs, naming
-  functions/variables, creating error messages, rebasing or updating
-  branches, structuring PRs.
+  PHP to framework idioms, adding comments, writing docs, editing
+  CLAUDE.md or AGENTS.md, naming functions/variables, creating error
+  messages, rebasing or updating branches, structuring PRs.
 user-invocable: true
 disable-model-invocation: false
 ---
@@ -153,6 +153,10 @@ Write docs that are conversational yet precise:
 - **Practical examples** over abstract descriptions
 
 Also apply the Shared Prose Rules (comments and docs) below.
+
+## Agent Instructions (CLAUDE.md, AGENTS.md)
+
+Write only what an agent cannot find on its own. A rule that a formatter fixes on its own gets no line. A rule that a hook, CI, or test enforces gets no line when its failure message names the fix, unless the code around it teaches the wrong pattern.
 
 ## Landing Changes
 
