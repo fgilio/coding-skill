@@ -22,7 +22,7 @@ Reach for `fluent()` when you'd otherwise sprinkle `(int) $data['x']`, `$data['y
 
 When Laravel ships an API for the job, reach for it before raw PHP: collections over `foreach`/`array_map`/`array_filter`, `Str`/`Arr` over `preg_*` and manual string ops, `Http` over curl, `Storage` over raw filesystem calls, `throw_if`/`throw_unless` over guard-and-throw blocks, `Rule` objects over string-built validation rules.
 
-A native function that does the whole job in one call (`mb_strtoupper($key)`, `mb_trim($line)`, `mb_substr($text, 0, 80)`) is not a manual string op, so keep it: the `Str` method only wraps it, and a formatter can write these calls itself, as Pint's `mb_str_functions` rule does. The rule targets work spread over several calls or a regex where one helper says it.
+Keep a native function that does the whole job in one call when the `Str` method only wraps it (`mb_strtoupper($key)` for `Str::upper($key)`, `mb_substr($text, 0, 80)` for `Str::substr()`): a formatter can write these calls itself, as Pint's `mb_str_functions` rule does. A helper that does more still wins where the difference matters, like `Str::trim()`, which also strips invisible characters. The rule targets work spread over several calls or a regex where one helper says it.
 
 ```php
 // DON'T: guard-and-throw block
