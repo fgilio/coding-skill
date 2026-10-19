@@ -85,3 +85,27 @@ Idiomatic conversion preserves semantics. The boundaries:
 - A loop that exits early stays `foreach` unless a collection method expresses the exit directly (`first()`, `contains()`, `takeUntil()`).
 - `each()` discards closure returns. When the results matter, that is `map()`.
 - Helpers are not drop-in for the raw construct they resemble: `blank('0')` is false while `empty('0')` is true. Convert when the semantics match, not when the shape does.
+
+## Tests
+
+Never test the framework. A test earns its place when a decision in this codebase can make it fail. `env()` returning a variable or its default, the rate limiter counting each key on its own, and Eloquent casting a date are covered by the framework's own tests.
+
+```php
+// DON'T: reads `env('CACHE_STORE', 'file')` back, so it only tests `env()`
+it('uses the file store when CACHE_STORE is unset', function () {
+    putenv('CACHE_STORE');
+
+    expect((require config_path('cache.php'))['default'])->toBe('file');
+});
+
+// DO: the limiter callback decides when the bypass header counts
+it('applies the limit when no bypass secret is configured', function () {
+    config(['services.limiter.bypass_secret' => null]);
+
+    $this->withHeader('X-Limiter-Bypass', 'any-value')
+        ->post('api/events')
+        ->assertHeader('X-RateLimit-Limit', '360');
+});
+```
+
+A config file earns a test only for logic of its own: a cast with a trap (`(bool) 'no'` is true), a fallback between settings, or a rule between values (a read timeout that must stay under the job timeout).
