@@ -10,7 +10,7 @@ The style rules live in [SKILL.md](skills/coding/SKILL.md). Laravel-specific idi
 
 Installs through the [fgilio marketplace](https://github.com/fgilio/claude-plugins) and receives updates as the skill evolves:
 
-```
+```text
 /plugin marketplace add fgilio/claude-plugins
 /plugin install coding@fgilio
 ```
@@ -27,6 +27,15 @@ ln -s ~/dev/skills/coding-skill/skills/coding ~/.claude/skills/coding
 This path also works with any agent that supports the open [Agent Skills](https://agentskills.io) format. Updates require a manual `git pull`.
 
 Claude Code loads the skill automatically when writing or reviewing code.
+
+## Development
+
+```bash
+bun install
+bun run check
+```
+
+`bun install` installs the pinned tools from `bun.lock` and the pre-commit hook, which formats and lints the staged Markdown, JSON and YAML. `bun run check` runs the format and Markdown gates. CI also runs the prose and plugin checks. [fleet/README.md](https://github.com/fgilio/claude-plugins/blob/main/fleet/README.md) in the marketplace repository describes the standard and the shared workflow that checks it.
 
 ## License
 

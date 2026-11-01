@@ -173,11 +173,11 @@ A reviewer should absorb the body in under a minute. Follow the repo's PR templa
 
 These apply to both code comments and documentation.
 
-- **Plain over jargon**: default to concrete behavior. Reach for CS terms (_idempotent_, _invariant_, _sentinel_, _signal_, _monotonic_) only when the term **is the point** (it conveys something plain English can't, and the reader needs that concept to use the code correctly). Test: remove the term. If meaning survives, it was decoration. Examples:
+- **Plain over jargon**: default to concrete behavior. Reach for CS terms (`idempotent`, `invariant`, `sentinel`, `signal`, `monotonic`) only when the term **is the point** (it conveys something plain English can't, and the reader needs that concept to use the code correctly). Test: remove the term. If meaning survives, it was decoration. Examples:
   - `Idempotently sync X` → `Sync X` (idempotency wasn't the point)
   - `This endpoint is idempotent, safe to retry on network failure` → keep (retry logic depends on it)
   - `Empty input is a deliberate detach signal` → `Passing an empty collection detaches every tag` (describe behavior, not framing)
-  - "invariant" in particular: prefer "rule" or "guarantee" unless the context is genuinely formal (a spec, math, quoted material)
+  - `invariant` in particular: prefer "rule" or "guarantee" unless the context is genuinely formal (a spec, math, quoted material)
 - **No filler clichés**: avoid "defense in depth", "legacy", and "the long pole" unless the term is load-bearing. Test: remove the phrase. If meaning survives, it was decoration. Examples:
   - `Defense in depth: validate at controller and model` → keep (names the layered-checks pattern that justifies the redundancy)
   - `Defense in depth approach to error handling` → `Validate inputs at every boundary` (rhetorical garnish)
@@ -193,6 +193,6 @@ These apply to both code comments and documentation.
   - `This isn't a workaround, it's the permanent fix` → `This is the permanent fix`
   - `Validate at the boundary, not deep in the domain` → keep (the reader would plausibly put the check in the domain layer, the contrast steers a real decision)
   - `The cache key includes the tenant, not just the slug` → keep only if a slug-only key is the natural first guess. Otherwise: `The cache key includes the tenant and the slug`
-- **No em dash** (—) and no `-` as parenthetical separators. Use parentheses or split into separate sentences.
+- **No em dash** (`—`) and no `-` as parenthetical separators. Use parentheses or split into separate sentences.
 - **No semicolons** (almost never). Split into separate sentences instead.
 - **Straight apostrophes and quotes** (' and ") always, never curly.
