@@ -30,6 +30,7 @@ Design from the call site. Read the producer, operation, returned value, stored 
 - **Symmetry follows meaning**: Similar contracts should look similar. Preserve names that distinguish different behavior. Do not merge two outputs with different meanings just to make their callers uniform.
 - **Ownership follows responsibility**: Put an operation where its context and callers live. Request-specific work stays at the request boundary. Reusable transformations take no request or UI context they do not need. A helper or wrapper earns its place by marking that boundary, not by shortening a call.
 - **One shared rule, one derivation**: Centralize repeated calculations or conversions when they express the same rule. Do not merge similar expressions that have different failure behavior or reasons to change. A base value can be shared while its variants remain explicit.
+- **One shared name, one definition**: A string that separate places must spell the same way (a header, a cache key, a queue name, a status) lives in one constant or enum, and every site references it, tests included. When another system depends on the value, one test pins the literal. A string that one place uses stays inline. So does a name the framework resolves from its own definition (a column, a route name, a config path).
 - **Expose only the intended interface**: Keep implementation details private or protected.
 - **Change interfaces as a set**: Check callers, framework hooks, and serialized or external contracts before changing a name, owner, or visibility. Move consumers and tests with the change.
 
@@ -43,6 +44,22 @@ $totalInCents = $order->totalInCents();
 // Keep: only the total includes tax.
 $subtotalInCents = $order->subtotalInCents();
 $totalInCents = $order->totalInCents();
+```
+
+```php
+// Avoid: the write and the forget each spell the key.
+Cache::put('invoice-totals', $totals);
+Cache::forget('invoice-totals');
+
+// Prefer: both reference the one definition.
+Cache::put(InvoiceTotals::CACHE_KEY, $totals);
+Cache::forget(InvoiceTotals::CACHE_KEY);
+
+// Keep: only this line reads the header.
+$requestId = $request->header('X-Request-Id');
+
+// Keep: the migration defines the columns.
+Invoice::where('status', InvoiceStatus::Paid)->sum('total_in_cents');
 ```
 
 Prefer a local change that makes a real caller easier to understand. Comments can explain a hidden constraint, but should not have to correct a misleading name.
@@ -63,7 +80,7 @@ await fetchUserWithPosts(userId);             // Not: getUser(userId, true)
 
 // Object methods that read naturally
 post.belongsToUser(user);
-order.hasStatus('pending');
+order.hasStatus(OrderStatus.Pending);
 ```
 
 ## Laravel Codebases
