@@ -102,7 +102,7 @@ it('uses the file store when CACHE_STORE is unset', function () {
 it('applies the limit when no bypass secret is configured', function () {
     config(['services.limiter.bypass_secret' => null]);
 
-    $this->withHeader('X-Limiter-Bypass', 'any-value')
+    $this->withHeader(EventLimiter::BYPASS_HEADER, 'any-value')
         ->post('api/events')
         ->assertHeader('X-RateLimit-Limit', '360');
 });
