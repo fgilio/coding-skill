@@ -210,6 +210,11 @@ These apply to both code comments and documentation.
   - `This isn't a workaround, it's the permanent fix` → `This is the permanent fix`
   - `Validate at the boundary, not deep in the domain` → keep (the reader would plausibly put the check in the domain layer, the contrast steers a real decision)
   - `The cache key includes the tenant, not just the slug` → keep only if a slug-only key is the natural first guess. Otherwise: `The cache key includes the tenant and the slug`
+- **Name a set by its rule, not its size**: a comment or doc that refers to a set defined elsewhere (repositories in a config, labels in an enum, consumers in a registry, jobs in a workflow) names the set by what puts a member in it, and links or points at its definition. A count goes stale the day a member joins, and nothing fails when it does. A count stays when it is the constraint (a limit, a quorum, a fixed size the code enforces) or when the list sits right next to it. Test: add a member to the source. If the sentence turns false, it hardcoded a count. Examples:
+  - `GitHub requires the check in all eleven product repositories with shared CI paths` → `GitHub requires the check in every repository whose entry includes the shared CI paths ($ciPaths)`
+  - `Warden runs on 16 repos` → `Warden runs on every repository in consumers.json`
+  - `lists its seven labels` → `lists its labels`
+  - `A batch holds at most 500 rows` → keep (the limit is the constraint)
 - **No em dash** (`—`) and no `-` as parenthetical separators. Use parentheses or split into separate sentences.
 - **No semicolons** (almost never). Split into separate sentences instead.
 - **Straight apostrophes and quotes** (' and ") always, never curly.
